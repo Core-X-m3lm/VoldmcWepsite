@@ -73,6 +73,23 @@
             100% { transform: translateY(-55px) scale(0.25); opacity: 0; }
         }
 
+        .ambient-bubble {
+            position: fixed;
+            bottom: -40px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.6), rgba(45,212,191,0.05) 70%);
+            border: 1px solid rgba(255,255,255,0.3);
+            pointer-events: none;
+            z-index: 0;
+            animation: bubble-float linear forwards;
+        }
+
+        @keyframes bubble-float {
+            0%   { transform: translateY(0) translateX(0) scale(1); opacity: 0.85; }
+            85%  { opacity: 0.55; }
+            100% { transform: translateY(-115vh) translateX(var(--drift, 0px)) scale(1.2); opacity: 0; }
+        }
+
         .page-content {
             position: relative;
             z-index: 1;
@@ -184,6 +201,10 @@
         .nav-card--discord .nav-card-icon svg { fill: var(--discord-purple); }
         .nav-card--discord:hover { border-color: var(--discord-purple); box-shadow: 0 0 16px rgba(142, 92, 255, 0.45); transform: translateY(-3px); }
 
+        .nav-card--info { border-color: rgba(32, 197, 183, 0.35); }
+        .nav-card--info .nav-card-icon svg { fill: var(--aqua); }
+        .nav-card--info:hover { border-color: var(--aqua); box-shadow: 0 0 16px rgba(32, 197, 183, 0.45); transform: translateY(-3px); }
+
         .live-dot {
             display: inline-block;
             width: 7px; height: 7px;
@@ -221,24 +242,31 @@
         .icon-btn--instagram { border-color: rgba(220, 39, 67, 0.4); box-shadow: 0 0 10px rgba(220, 39, 67, 0.25); }
         .icon-btn--instagram:hover { border-color: var(--ig-pink); box-shadow: 0 0 18px rgba(220, 39, 67, 0.6); transform: translateY(-2px); }
 
-        /* ---------------- Back button (Store view only) ---------------- */
-        .back-btn {
+        /* ---------------- Back link (Store / sub-views) ---------------- */
+        .back-link {
             position: fixed;
             top: 22px; left: 22px;
             z-index: 6;
-            width: 46px; height: 46px;
-            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             background-color: var(--card-bg);
             backdrop-filter: blur(6px);
             border: 1px solid var(--card-border);
-            display: flex; align-items: center; justify-content: center;
+            border-radius: 999px;
+            padding: 10px 18px 10px 14px;
             text-decoration: none;
             cursor: pointer;
+            font-family: 'VT323', monospace;
+            font-size: 18px;
+            letter-spacing: 1px;
+            color: var(--aqua);
             transition: all 0.25s ease, opacity 0.2s ease;
         }
 
-        .back-btn svg { width: 20px; height: 20px; fill: none; stroke: var(--aqua); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
-        .back-btn:hover { border-color: var(--aqua); box-shadow: 0 0 14px rgba(32, 197, 183, 0.4); transform: translateX(-3px); }
+        .back-link svg { width: 18px; height: 18px; flex-shrink: 0; fill: none; stroke: var(--aqua); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+        .back-link span { color: var(--aqua); white-space: nowrap; }
+        .back-link:hover { border-color: var(--aqua); box-shadow: 0 0 14px rgba(32, 197, 183, 0.4); transform: translateX(-3px); }
 
         /* ---------------- Language switcher (top right) ---------------- */
         .lang-btn {
@@ -428,6 +456,56 @@
 
         .pay-btn:hover { background-color: var(--aqua); color: var(--deep); }
 
+        /* ---------------- Media Application (terms) ---------------- */
+        .terms-card {
+            background-color: var(--card-bg);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 30px 32px;
+            max-width: 700px;
+            width: 100%;
+            margin: 0 auto 36px;
+            box-sizing: border-box;
+        }
+
+        .terms-list { list-style: none; counter-reset: term-counter; margin: 0; padding: 0; }
+
+        .terms-list li {
+            counter-increment: term-counter;
+            font-family: 'VT323', monospace;
+            font-size: 21px;
+            color: #FFF3D6;
+            padding: 12px 0 12px 46px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+            line-height: 1.35;
+        }
+
+        .terms-list li:last-child { border-bottom: none; }
+
+        .terms-list li::before {
+            content: counter(term-counter);
+            position: absolute;
+            left: 0; top: 9px;
+            width: 30px; height: 30px;
+            border-radius: 50%;
+            background: rgba(32, 197, 183, 0.18);
+            border: 1px solid var(--aqua);
+            color: var(--aqua);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 16px;
+            font-family: 'VT323', monospace;
+        }
+
+        .media-apply-btn {
+            max-width: 700px;
+            width: 100%;
+            margin: 0 auto 50px;
+            font-size: 26px;
+            padding: 14px 0;
+        }
+
         /* ---------------- Shards Section ---------------- */
         .shards-display { font-family: 'VT323', monospace; font-size: 32px; color: #fff; text-align: center; padding: 30px; margin-bottom: 50px; letter-spacing: 1px; }
         .shards-display .soon-tag { color: var(--gold); text-shadow: 0 0 12px rgba(255, 217, 61, 0.5); }
@@ -515,9 +593,13 @@
             .card h2 { font-size: 30px; }
             .section-title { font-size: 26px; }
             .shards-display { font-size: 26px; padding: 22px; }
-            .back-btn, .lang-btn { width: 40px; height: 40px; top: 14px; }
-            .back-btn { left: 14px; }
-            .lang-btn { right: 14px; font-size: 17px; }
+            .lang-btn { width: 40px; height: 40px; top: 14px; right: 14px; font-size: 17px; }
+            .back-link { top: 14px; left: 14px; font-size: 14px; padding: 8px 14px 8px 10px; gap: 6px; }
+            .back-link svg { width: 15px; height: 15px; }
+            .terms-card { padding: 22px 18px; }
+            .terms-list li { font-size: 17px; padding-left: 40px; }
+            .terms-list li::before { width: 26px; height: 26px; font-size: 14px; top: 7px; }
+            .media-apply-btn { font-size: 22px; }
             .lang-dropdown { top: 58px; right: 14px; min-width: 170px; }
             .modal-text { font-size: 20px; }
             .modal-btn { font-size: 17px; padding: 9px 20px; }
@@ -533,19 +615,15 @@
 </head>
 <body>
 
-    <div class="bubbles">
-        <div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
-        <div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
-        <div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
-        <div class="bubble"></div>
-    </div>
+    <div class="bubbles" id="bubblesContainer"></div>
 
     <div id="toast"></div>
 
-    <a href="#" id="backBtn" class="back-btn" aria-label="Back to main" hidden onclick="showHome(event)">
+    <a href="#" id="backBtn" class="back-link" aria-label="Back to main" hidden onclick="goBack(event)">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M19 12H5M5 12L12 19M5 12L12 5"/>
         </svg>
+        <span data-i18n="backToMain">Back To Main</span>
     </a>
 
     <button type="button" class="lang-btn" id="langBtn" onclick="toggleLangMenu()" aria-label="Change language">🇺🇸</button>
@@ -609,6 +687,14 @@
                         </span>
                         <span class="nav-card-label" data-i18n="navDiscordLabel">DISCORD</span>
                         <span class="nav-card-count" id="discordCount">75+ Members</span>
+                    </a>
+                    <a href="#" class="nav-card nav-card--info" onclick="comingSoon(event)">
+                        <span class="nav-card-icon">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/>
+                            </svg>
+                        </span>
+                        <span class="nav-card-label" data-i18n="navWhoLabel">WHO WE ARE?</span>
                     </a>
                 </div>
 
@@ -694,7 +780,7 @@
                         <li data-i18n="mediaFeature3">Content support and promotion</li>
                         <li data-i18n="mediaFeature4">Private area and custom Kit</li>
                     </ul>
-                    <a href="#" class="pay-btn" data-i18n="applyBtn" onclick="confirmNav('https://discord.gg/nHqhW9dxvK','Discord', event)">APPLY</a>
+                    <a href="#" class="pay-btn" data-i18n="applyBtn" onclick="showMediaApply(event)">APPLY</a>
                 </div>
 
             </div>
@@ -702,6 +788,39 @@
             <div class="shards-display">
                 <span data-i18n="shardsWord">SHARDS</span> <span class="soon-tag" data-i18n="soonWord">SOON</span>
             </div>
+
+        </div>
+
+        <!-- ============== MEDIA APPLICATION VIEW ============== -->
+        <div id="mediaApplyView" class="view" hidden>
+
+            <div class="header-section">
+                <div class="page-tag" data-i18n="pageTagMedia">MEDIA APPLICATION</div>
+                <div class="server-title">VOLDMC</div>
+            </div>
+
+            <svg class="wave-divider" viewBox="0 0 960 40" preserveAspectRatio="none">
+                <path d="M0,20 C160,40 320,0 480,20 C640,40 800,0 960,20 L960,40 L0,40 Z" fill="#20C5B7" fill-opacity="0.15"/>
+                <path d="M0,28 C160,44 320,12 480,28 C640,44 800,12 960,28 L960,40 L0,40 Z" fill="#20C5B7" fill-opacity="0.25"/>
+            </svg>
+
+            <div class="section-title" data-i18n="mediaTermsTitle">MEDIA RANK TERMS</div>
+
+            <div class="terms-card">
+                <ol class="terms-list">
+                    <li data-i18n="mediaTerm1">Content must be related to the server.</li>
+                    <li data-i18n="mediaTerm2">Posting stolen or unauthorized reposted content is prohibited.</li>
+                    <li data-i18n="mediaTerm3">The server IP or link must be included in the description or within the content.</li>
+                    <li data-i18n="mediaTerm4">Maintain the server's reputation and do not post any abusive content.</li>
+                    <li data-i18n="mediaTerm5">Continuous, ongoing posting activity.</li>
+                    <li data-i18n="mediaTerm6">Deleting clips or posts after receiving the rank is prohibited.</li>
+                    <li data-i18n="mediaTerm7">Compliance with the server's general rules.</li>
+                    <li data-i18n="mediaTerm8">If posting stops for an extended period, the rank may be revoked.</li>
+                    <li data-i18n="mediaTerm9">Continuous daily streaming on the server with over 10 viewers, or a video with over 500 views.</li>
+                </ol>
+            </div>
+
+            <a href="#" class="pay-btn media-apply-btn" data-i18n="applyBtn" onclick="confirmNav('https://discord.gg/nHqhW9dxvK','Discord', event)">APPLY</a>
 
         </div>
 
@@ -755,7 +874,20 @@
             mediaFeature1:    { en: 'Media rank inside the server', ar: 'رتبة ميديا داخل السيرفر' },
             mediaFeature2:    { en: 'Special permissions and perks', ar: 'صلاحيات ومزايا خاصة' },
             mediaFeature3:    { en: 'Content support and promotion', ar: 'دعم وترويج للمحتوى' },
-            mediaFeature4:    { en: 'Private area and custom Kit', ar: 'منطقة خاصة وكت مخصص' }
+            mediaFeature4:    { en: 'Private area and custom Kit', ar: 'منطقة خاصة وكت مخصص' },
+            backToMain:       { en: 'Back To Main', ar: 'الرجوع للرئيسية' },
+            navWhoLabel:      { en: 'WHO WE ARE?', ar: 'من نحن؟' },
+            pageTagMedia:     { en: 'MEDIA APPLICATION', ar: 'تقديم ميديا' },
+            mediaTermsTitle:  { en: 'MEDIA RANK TERMS', ar: 'شروط رتبة الميديا' },
+            mediaTerm1:       { en: 'Content must be related to the server.', ar: 'يجب أن يكون المحتوى متعلقًا بالسيرفر.' },
+            mediaTerm2:       { en: 'Posting stolen or unauthorized reposted content is prohibited.', ar: 'يمنع نشر محتوى مسروق أو منقول بدون إذن.' },
+            mediaTerm3:       { en: 'The server IP or link must be included in the description or within the content.', ar: 'يجب وضع الـ IP أو رابط السيرفر في الوصف أو داخل المحتوى.' },
+            mediaTerm4:       { en: 'Maintain the server\'s reputation and do not post any abusive content.', ar: 'الحفاظ على سمعة السيرفر وعدم نشر أي إساءة.' },
+            mediaTerm5:       { en: 'Continuous, ongoing posting activity.', ar: 'النشاط المستمر في النشر.' },
+            mediaTerm6:       { en: 'Deleting clips or posts after receiving the rank is prohibited.', ar: 'يمنع حذف المقاطع أو المنشورات بعد الحصول على الرتبة.' },
+            mediaTerm7:       { en: 'Compliance with the server\'s general rules.', ar: 'الالتزام بقوانين السيرفر العامة.' },
+            mediaTerm8:       { en: 'If posting stops for an extended period, the rank may be revoked.', ar: 'في حال التوقف عن النشر لفترة طويلة قد يتم سحب الرتبة.' },
+            mediaTerm9:       { en: 'Continuous daily streaming on the server with over 10 viewers, or a video with over 500 views.', ar: 'بث متواصل ويومي في السيرفر بمشاهدات أكثر من 10، أو فيديو بأكثر من 500 مشاهدة.' }
         };
 
         let currentLang = 'en';
@@ -823,7 +955,9 @@
             showToast(t('comingSoonMsg'));
         }
 
-        /* ---------------- View switching (Main <-> Store), animated ---------------- */
+        /* ---------------- View switching (Main <-> Store <-> Media Apply), animated ---------------- */
+        let currentViewId = 'homeView';
+
         function switchView(fromId, toId, showBack) {
             const fromEl = document.getElementById(fromId);
             const toEl = document.getElementById(toId);
@@ -841,6 +975,7 @@
                 toEl.classList.add('view-enter-active');
 
                 document.getElementById('backBtn').hidden = !showBack;
+                currentViewId = toId;
 
                 setTimeout(function () {
                     toEl.classList.remove('view-enter', 'view-enter-active');
@@ -853,9 +988,16 @@
             switchView('homeView', 'storeView', true);
         }
 
-        function showHome(e) {
+        function showMediaApply(e) {
             if (e) e.preventDefault();
-            switchView('storeView', 'homeView', false);
+            switchView(currentViewId, 'mediaApplyView', true);
+        }
+
+        function goBack(e) {
+            if (e) e.preventDefault();
+            if (currentViewId !== 'homeView') {
+                switchView(currentViewId, 'homeView', false);
+            }
         }
 
         /* ---------------- Confirm-before-leaving modal ---------------- */
@@ -885,7 +1027,31 @@
             if (e.target === this) closeConfirm();
         });
 
-        /* ---------------- Mouse Trail Bubbles (disabled on touch devices) ---------------- */
+        /* ---------------- Ambient Ocean Bubbles (spawn from the screen, all devices) ---------------- */
+        const bubblesContainer = document.getElementById('bubblesContainer');
+
+        function spawnAmbientBubble() {
+            const bubble = document.createElement('div');
+            bubble.className = 'ambient-bubble';
+            const size = Math.random() * 22 + 8;
+            const duration = Math.random() * 6 + 7; /* 7s - 13s rise */
+            const drift = (Math.random() * 80 - 40) + 'px';
+            bubble.style.width = size + 'px';
+            bubble.style.height = size + 'px';
+            bubble.style.left = (Math.random() * 100) + 'vw';
+            bubble.style.animationDuration = duration + 's';
+            bubble.style.setProperty('--drift', drift);
+            bubblesContainer.appendChild(bubble);
+            setTimeout(function () { bubble.remove(); }, duration * 1000 + 300);
+        }
+
+        /* seed a first batch immediately so the page doesn't feel empty on load */
+        for (let i = 0; i < 10; i++) {
+            setTimeout(spawnAmbientBubble, i * 180);
+        }
+        setInterval(spawnAmbientBubble, 420);
+
+        /* ---------------- Mouse Trail Bubbles (extra flourish, desktop only) ---------------- */
         let lastTrailTime = 0;
         if (window.matchMedia('(pointer: fine)').matches) {
             document.addEventListener('mousemove', function (e) {
