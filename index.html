@@ -324,6 +324,7 @@
         .back-link svg { width: 18px; height: 18px; flex-shrink: 0; fill: none; stroke: var(--sb-ink); stroke-width: 2.8; stroke-linecap: round; stroke-linejoin: round; }
         .back-link span { color: var(--sb-ink); white-space: nowrap; }
         .back-link:hover { transform: translate(-2px, -2px); box-shadow: 5px 5px 0 var(--sb-ink); }
+        .back-link[hidden] { display: none; }
 
         /* ---------------- Language switcher (top right) ---------------- */
         .lang-btn {
@@ -516,7 +517,7 @@
         }
 
         .features-list li:last-child { border-bottom: none; }
-        .features-list li::before { content: "🫧"; margin-right: 12px; font-size: 14px; }
+        .features-list li::before { content: "→"; margin-right: 12px; font-size: 14px; }
 
         .pay-btn {
             background-color: var(--sb-yellow);
