@@ -24,7 +24,7 @@
 
         * { box-sizing: border-box; }
 
-        html { scrollbar-width: none; -ms-overflow-style: none; }
+        html { scrollbar-width: none; -ms-overflow-style: none; scroll-behavior: smooth; }
         ::-webkit-scrollbar { display: none; }
 
         body {
@@ -100,8 +100,11 @@
             padding-bottom: 60px;
         }
 
+        /* ---------------- Section wrapper (used for Store / Media Application) ---------------- */
+        .section-block { width: 100%; text-align: center; scroll-margin-top: 30px; }
+
         /* ---------------- Header & IP / Port ---------------- */
-        .header-section { text-align: center; margin-bottom: 40px; width: 100%; }
+        .header-section { text-align: center; margin-bottom: 40px; width: 100%; scroll-margin-top: 30px; }
 
         .page-tag {
             display: inline-block;
@@ -306,6 +309,134 @@
         /* ---------------- Wave Divider ---------------- */
         .wave-divider { width: 100%; max-width: 960px; display: block; margin-bottom: 35px; opacity: 0.7; }
 
+        /* ---------------- Ranks Section ---------------- */
+        .section-title { font-family: 'VT323', monospace; font-size: 32px; color: #fff; margin-bottom: 30px; text-align: center; letter-spacing: 1px; }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+            width: 100%;
+            max-width: 960px;
+            margin: 0 auto 50px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            top: -40%; right: -30%;
+            width: 140px; height: 140px;
+            background: radial-gradient(circle, rgba(45,212,191,0.22), transparent 70%);
+            border-radius: 50%;
+        }
+
+        .card:hover { border-color: var(--aqua); box-shadow: 0 10px 25px rgba(32, 197, 183, 0.18); transform: translateY(-5px); }
+        .card h2 { font-family: 'VT323', monospace; font-size: 36px; margin: 0 0 20px 0; color: var(--gold); text-align: center; }
+
+        .features-list { list-style: none; padding: 0; margin: 0; flex-grow: 1; text-align: left; }
+
+        .features-list li {
+            font-family: 'VT323', monospace;
+            font-size: 20px;
+            color: #FFF3D6;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            line-height: 1.2;
+        }
+
+        .features-list li:last-child { border-bottom: none; }
+        .features-list li::before { content: "➤"; color: var(--aqua); margin-right: 12px; font-size: 15px; }
+
+        .pay-btn {
+            background-color: transparent;
+            color: var(--aqua);
+            border: 1px solid var(--aqua);
+            border-radius: 8px;
+            padding: 12px 0;
+            text-align: center;
+            text-decoration: none;
+            font-family: 'VT323', monospace;
+            font-size: 24px;
+            transition: all 0.2s ease;
+            display: block;
+            margin-top: auto;
+            cursor: pointer;
+        }
+
+        .pay-btn:hover { background-color: var(--aqua); color: var(--deep); }
+
+        /* ---------------- Shards Section ---------------- */
+        .shards-display { font-family: 'VT323', monospace; font-size: 32px; color: #fff; text-align: center; padding: 30px; margin-bottom: 50px; letter-spacing: 1px; }
+        .shards-display .soon-tag { color: var(--gold); text-shadow: 0 0 12px rgba(255, 217, 61, 0.5); }
+
+        /* ---------------- Media Application (terms) ---------------- */
+        .terms-card {
+            background-color: var(--card-bg);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 30px 32px;
+            max-width: 700px;
+            width: 100%;
+            margin: 0 auto 36px;
+            box-sizing: border-box;
+            text-align: left;
+        }
+
+        .terms-list { list-style: none; counter-reset: term-counter; margin: 0; padding: 0; }
+
+        .terms-list li {
+            counter-increment: term-counter;
+            font-family: 'VT323', monospace;
+            font-size: 21px;
+            color: #FFF3D6;
+            padding: 12px 0 12px 46px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+            line-height: 1.35;
+        }
+
+        .terms-list li:last-child { border-bottom: none; }
+
+        .terms-list li::before {
+            content: counter(term-counter);
+            position: absolute;
+            left: 0; top: 9px;
+            width: 30px; height: 30px;
+            border-radius: 50%;
+            background: rgba(32, 197, 183, 0.18);
+            border: 1px solid var(--aqua);
+            color: var(--aqua);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 16px;
+            font-family: 'VT323', monospace;
+        }
+
+        .media-apply-btn {
+            max-width: 700px;
+            width: 100%;
+            margin: 0 auto 50px;
+            font-size: 26px;
+            padding: 14px 0;
+        }
+
         /* ---------------- Footer ---------------- */
         footer { width: 100%; max-width: 960px; border-top: 1px solid rgba(255,255,255,0.12); padding-top: 30px; text-align: center; }
 
@@ -386,7 +517,14 @@
             .nav-card { min-width: 0; padding: 14px 18px; }
             .social-row { gap: 14px; }
             .icon-btn { width: 44px; height: 44px; }
+            .card h2 { font-size: 30px; }
+            .section-title { font-size: 26px; }
+            .shards-display { font-size: 26px; padding: 22px; }
             .lang-btn { width: 40px; height: 40px; top: 14px; right: 14px; font-size: 17px; }
+            .terms-card { padding: 22px 18px; }
+            .terms-list li { font-size: 17px; padding-left: 40px; }
+            .terms-list li::before { width: 26px; height: 26px; font-size: 14px; top: 7px; }
+            .media-apply-btn { font-size: 22px; }
             .modal-text { font-size: 20px; }
             .modal-btn { font-size: 17px; padding: 9px 20px; }
             .copyright-badge { font-size: 9px; padding: 5px 9px; bottom: 8px; right: 8px; }
@@ -395,6 +533,7 @@
 
         @media (max-width: 360px) {
             .server-title { font-size: 28px; }
+            .features-list li { font-size: 17px; }
         }
     </style>
 </head>
@@ -421,7 +560,8 @@
 
     <div class="page-content">
 
-        <div class="header-section">
+        <!-- ============== HOME SECTION ============== -->
+        <div id="home" class="header-section">
             <div class="page-tag" data-i18n="pageTagMain">MAIN</div>
             <div class="server-title">VOLDMC</div>
             <div class="server-subtitle" data-i18n="seasonSubtitle">SEASON 2</div>
@@ -438,7 +578,7 @@
             </div>
 
             <div class="nav-row">
-                <a href="store.html" class="nav-card nav-card--store">
+                <a href="#store" class="nav-card nav-card--store">
                     <span class="nav-card-icon">
                         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path d="M7 4h-2l-1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2h-11.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1h-14.27l-.95-2zm14 13c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
@@ -489,6 +629,84 @@
             <path d="M0,28 C160,44 320,12 480,28 C640,44 800,12 960,28 L960,40 L0,40 Z" fill="#20C5B7" fill-opacity="0.25"/>
         </svg>
 
+        <!-- ============== STORE SECTION ============== -->
+        <div id="store" class="section-block">
+            <div class="page-tag" data-i18n="pageTagStore">STORE</div>
+            <div class="section-title" data-i18n="ranksTitle">RANKS</div>
+
+            <div class="cards-grid">
+
+                <div class="card">
+                    <h2>VIP</h2>
+                    <ul class="features-list">
+                        <li data-i18n="vipFeature1">[Kit]</li>
+                        <li data-i18n="vipFeature2">[A place designated for crushing]</li>
+                        <li data-i18n="vipFeature3">[Your own color]</li>
+                    </ul>
+                    <a href="#" class="pay-btn" data-i18n="payBtn" onclick="confirmNav('https://discord.gg/nHqhW9dxvK','Discord', event)">PAY</a>
+                </div>
+
+                <div class="card">
+                    <h2>VIP PLUS</h2>
+                    <ul class="features-list">
+                        <li data-i18n="vipFeature1">[Kit]</li>
+                        <li data-i18n="vipFeature2">[A place designated for crushing]</li>
+                        <li data-i18n="vipFeature3">[Your own color]</li>
+                        <li data-i18n="vipPlusFeature4">[enderchest]</li>
+                    </ul>
+                    <a href="#" class="pay-btn" data-i18n="payBtn" onclick="confirmNav('https://discord.gg/nHqhW9dxvK','Discord', event)">PAY</a>
+                </div>
+
+                <div class="card">
+                    <h2>VOLD</h2>
+                    <ul class="features-list">
+                        <li data-i18n="vipFeature1">[Kit]</li>
+                        <li data-i18n="voldFeature2">[Designated place For breaking]</li>
+                        <li data-i18n="voldFeature3">[Upon entering, a loud noise is heard Dragon]</li>
+                        <li data-i18n="voldFeature4">Fly</li>
+                    </ul>
+                    <a href="#" class="pay-btn" data-i18n="payBtn" onclick="confirmNav('https://discord.gg/nHqhW9dxvK','Discord', event)">PAY</a>
+                </div>
+
+                <div class="card">
+                    <h2>MEDIA</h2>
+                    <ul class="features-list">
+                        <li data-i18n="mediaFeature1">Media rank inside the server</li>
+                        <li data-i18n="mediaFeature2">Special permissions and perks</li>
+                        <li data-i18n="mediaFeature3">Content support and promotion</li>
+                        <li data-i18n="mediaFeature4">Private area and custom Kit</li>
+                    </ul>
+                    <a href="#mediaApply" class="pay-btn" data-i18n="applyBtn">APPLY</a>
+                </div>
+
+            </div>
+
+            <div class="shards-display">
+                <span data-i18n="shardsWord">SHARDS</span> <span class="soon-tag" data-i18n="soonWord">SOON</span>
+            </div>
+        </div>
+
+        <!-- ============== MEDIA APPLICATION SECTION ============== -->
+        <div id="mediaApply" class="section-block">
+            <div class="section-title" data-i18n="mediaTermsTitle">MEDIA RANK TERMS</div>
+
+            <div class="terms-card">
+                <ol class="terms-list">
+                    <li data-i18n="mediaTerm1">Content must be related to the server.</li>
+                    <li data-i18n="mediaTerm2">Posting stolen or unauthorized reposted content is prohibited.</li>
+                    <li data-i18n="mediaTerm3">The server IP or link must be included in the description or within the content.</li>
+                    <li data-i18n="mediaTerm4">Maintain the server's reputation and do not post any abusive content.</li>
+                    <li data-i18n="mediaTerm5">Continuous, ongoing posting activity.</li>
+                    <li data-i18n="mediaTerm6">Deleting clips or posts after receiving the rank is prohibited.</li>
+                    <li data-i18n="mediaTerm7">Compliance with the server's general rules.</li>
+                    <li data-i18n="mediaTerm8">If posting stops for an extended period, the rank may be revoked.</li>
+                    <li data-i18n="mediaTerm9">Continuous daily streaming on the server with over 10 viewers, or a video with over 500 views.</li>
+                </ol>
+            </div>
+
+            <a href="#" class="pay-btn media-apply-btn" data-i18n="applyBtn" onclick="confirmNav('https://discord.gg/nHqhW9dxvK','Discord', event)">APPLY</a>
+        </div>
+
         <footer>
             <div class="footer-brand">
                 <div class="footer-dot"></div>
@@ -515,6 +733,33 @@
             navDiscordLabel:  { en: 'DISCORD', ar: 'ديسكورد' },
             navWhoLabel:      { en: 'WHO WE ARE?', ar: 'من نحن؟' },
             membersWord:      { en: 'Members', ar: 'عضو' },
+            pageTagStore:     { en: 'STORE', ar: 'المتجر' },
+            ranksTitle:       { en: 'RANKS', ar: 'الرتب' },
+            payBtn:           { en: 'PAY', ar: 'ادفع' },
+            applyBtn:         { en: 'APPLY', ar: 'تقديم' },
+            shardsWord:       { en: 'SHARDS', ar: 'شاردز' },
+            soonWord:         { en: 'SOON', ar: 'قريبًا' },
+            vipFeature1:      { en: '[Kit]', ar: '[كت]' },
+            vipFeature2:      { en: '[A place designated for crushing]', ar: '[مكان مخصص للتكسير]' },
+            vipFeature3:      { en: '[Your own color]', ar: '[لون خاص فيك]' },
+            vipPlusFeature4:  { en: '[enderchest]', ar: '[إندرتشيست]' },
+            voldFeature2:     { en: '[Designated place For breaking]', ar: '[مكان مخصص للتكسير]' },
+            voldFeature3:     { en: '[Upon entering, a loud noise is heard Dragon]', ar: '[عند الدخول يُسمع صوت تنين عالٍ]' },
+            voldFeature4:     { en: 'Fly', ar: 'فلاي (طيران)' },
+            mediaFeature1:    { en: 'Media rank inside the server', ar: 'رتبة ميديا داخل السيرفر' },
+            mediaFeature2:    { en: 'Special permissions and perks', ar: 'صلاحيات ومزايا خاصة' },
+            mediaFeature3:    { en: 'Content support and promotion', ar: 'دعم وترويج للمحتوى' },
+            mediaFeature4:    { en: 'Private area and custom Kit', ar: 'منطقة خاصة وكت مخصص' },
+            mediaTermsTitle:  { en: 'MEDIA RANK TERMS', ar: 'شروط رتبة الميديا' },
+            mediaTerm1:       { en: 'Content must be related to the server.', ar: 'يجب أن يكون المحتوى متعلقًا بالسيرفر.' },
+            mediaTerm2:       { en: 'Posting stolen or unauthorized reposted content is prohibited.', ar: 'يمنع نشر محتوى مسروق أو منقول بدون إذن.' },
+            mediaTerm3:       { en: 'The server IP or link must be included in the description or within the content.', ar: 'يجب وضع الـ IP أو رابط السيرفر في الوصف أو داخل المحتوى.' },
+            mediaTerm4:       { en: 'Maintain the server\'s reputation and do not post any abusive content.', ar: 'الحفاظ على سمعة السيرفر وعدم نشر أي إساءة.' },
+            mediaTerm5:       { en: 'Continuous, ongoing posting activity.', ar: 'النشاط المستمر في النشر.' },
+            mediaTerm6:       { en: 'Deleting clips or posts after receiving the rank is prohibited.', ar: 'يمنع حذف المقاطع أو المنشورات بعد الحصول على الرتبة.' },
+            mediaTerm7:       { en: 'Compliance with the server\'s general rules.', ar: 'الالتزام بقوانين السيرفر العامة.' },
+            mediaTerm8:       { en: 'If posting stops for an extended period, the rank may be revoked.', ar: 'في حال التوقف عن النشر لفترة طويلة قد يتم سحب الرتبة.' },
+            mediaTerm9:       { en: 'Continuous daily streaming on the server with over 10 viewers, or a video with over 500 views.', ar: 'بث متواصل ويومي في السيرفر بمشاهدات أكثر من 10، أو فيديو بأكثر من 500 مشاهدة.' },
             disclaimer:       { en: 'Not associated with Mojang or Microsoft', ar: 'الموقع غير مرتبط بشركة Mojang أو Microsoft' },
             footerStorePolicy:{ en: 'STORE PRIVACY POLICY', ar: 'سياسة خصوصية المتجر' },
             footerVoldPolicy: { en: 'VOLDMC PRIVACY POLICY', ar: 'سياسة خصوصية VoldMC' },
